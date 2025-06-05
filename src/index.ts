@@ -1,28 +1,26 @@
-import { Container } from '@cloudflare/containers';
+import { Container, loadBalance } from "@cloudflare/containers";
 
-export class MyContainer extends Container {
-  defaultPort = 8080;
-  sleepAfter = '10m';
-  autoscale = true;
+export class Backend extends Container {
+  defaultPort = 8080; // pass requests to port 8080 in the container
+  sleepAfter = "2h"; // only sleep a container if it hasn't gotten requests in 2 hours
 }
 
-export default {
-  async fetch(
-    request: Request,
-    env: { MY_CONTAINER: DurableObjectNamespace<MyContainer> }
-  ): Promise<Response> {
-    const pathname = new URL(request.url).pathname;
+export interface Env {
+  BACKEND: DurableObjectNamespace<Backend>;
+  ASSETS: Fetcher;
+}
 
-    // To route requests to a specific container,
-    // pass a unique container identifier to .get()
-    if (pathname.startsWith('/container')) {
-      let id = env.MY_CONTAINER.idFromName(pathname);
-      let container = env.MY_CONTAINER.get(id, {locationHint: 'enamer'});
-      return await container.fetch(request);
+const INSTANCE_COUNT = 3;
+
+export default {
+  async fetch(request: Request, env: Env): Promise<Response> {
+    const url = new URL(request.url);
+    if (url.pathname.startsWith("/api")) {
+      // note: "loadBalance" to be replaced with latency-aware routing in the near future
+      const containerInstance = await loadBalance(env.BACKEND, INSTANCE_COUNT)
+      return containerInstance.fetch(request);
     }
 
-    return new Response(
-      'Call /container/<ID> to start a container for each ID with a 10s timeout.\nCall /lb to load balancing over multiple containers\nCall /error to start a container that errors\nCall /singleton to get a single specific container'
-    );
+    return env.ASSETS.fetch(request);
   },
 };

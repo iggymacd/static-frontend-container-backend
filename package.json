@@ -1,6 +1,6 @@
 {
-	"name": "hello-world-containers-template",
-	"description": "Build a Container-enabled Worker",
+	"name": "static-frontend-container-backend-template",
+	"description": "Run a static frontend talking to a containerized backend on Cloudflare Workers",
 	"version": "0.0.3",
 	"private": true,
 	"scripts": {
@@ -12,10 +12,10 @@
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20250506.0",
 		"typescript": "^5.5.2",
-		"wrangler": "^4.17.0"
+		"wrangler": "^4.18.0"
 	},
 	"dependencies": {
-		"cf-containers": "0.0.7"
+		"@cloudflare/containers": "0.0.9"
 	},
 	"cloudflare": {
     "label": "Containers Starter",

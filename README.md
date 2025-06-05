@@ -1,19 +1,18 @@
-# Containers Starter
+# Static Frontend + Container Backend
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/mikenomitch/hello-world-containers)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/mikenomitch/static-frontend-container-backend)
 
 <!-- dash-content-start -->
 
-This is a [Container](https://developers.cloudflare.com/containers/) starter template.
-
-It demonstrates basic Container coniguration, launching and routing to individual container, load balancing over multiple container, running basic hooks on container status changes.
+This is a [Container](https://developers.cloudflare.com/containers/) starter template to
+demonstrate deploying a static frontend with a load-balanced and stateless containerized backend.
 
 <!-- dash-content-end -->
 
 Outside of this repo, you can start a new project with this template using [C3](https://developers.cloudflare.com/pages/get-started/c3/) (the `create-cloudflare` CLI):
 
 ```bash
-npm create cloudflare@latest -- --template=mikenomitch/hello-world-containers
+npm create cloudflare@latest -- --template=mikenomitch/static-frontend-container-backend
 ```
 
 ## Getting Started
@@ -38,8 +37,12 @@ npm run dev
 
 Open [http://localhost:8787](http://localhost:8787) with your browser to see the result.
 
-You can start editing your Worker by modifying `src/index.ts` and you can start
-editing your Container by editing the content of `container_src`.
+You can start editing your Worker by modifying `src/index.ts`, you can start
+editing your Container backend by editing the content of `container_src`,
+and you can start editing assets in `/dist`.
+
+You can also use one of the [many frontend frameworks](/workers/framework-guides/web-apps/)
+that work on Cloudflare.
 
 ## Deploying To Production
 

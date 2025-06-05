@@ -1,26 +1,24 @@
 package main
 
 import (
-	"fmt"
+	"encoding/json"
 	"log"
 	"net/http"
-	"os"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	message := os.Getenv("MESSAGE")
-	instanceId := os.Getenv("CLOUDFLARE_DEPLOYMENT_ID")
+	widgets := []map[string]interface{}{
+		{"id": 1, "name": "Widget A"},
+		{"id": 2, "name": "Widget B"},
+		{"id": 3, "name": "Widget C"},
+	}
 
-	fmt.Fprintf(w, "Hi, I'm a container and this is my message: %s, and my instance ID is: %s", message, instanceId)
-}
-
-func errorHandler(w http.ResponseWriter, r *http.Request) {
-	panic("This is a panic")
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	json.NewEncoder(w).Encode(widgets)
 }
 
 func main() {
-	http.HandleFunc("/", handler)
-	http.HandleFunc("/container", handler)
-	http.HandleFunc("/error", errorHandler)
+	http.HandleFunc("/api/widgets", handler)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

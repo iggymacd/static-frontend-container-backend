@@ -9,26 +9,30 @@
 	"observability": {
 		"enabled": true
 	},
+	"assets": {
+    "directory": "./dist",
+    "binding": "ASSETS"
+  },
 	"containers": [
 		{
-			"class_name": "MyContainer",
+			"class_name": "Backend",
 			"image": "./Dockerfile",
-			"max_instances": 10,
-			"name": "hello-containers"
+			"max_instances": 3,
+			"name": "my-backend"
 		}
 	],
 	"durable_objects": {
 		"bindings": [
 			{
-				"class_name": "MyContainer",
-				"name": "MY_CONTAINER"
+				"class_name": "Backend",
+				"name": "BACKEND"
 			}
 		]
 	},
 	"migrations": [
 		{
 			"new_sqlite_classes": [
-				"MyContainer"
+				"Backend"
 			],
 			"tag": "v1"
 		}

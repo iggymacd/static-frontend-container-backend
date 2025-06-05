@@ -1,6 +1,6 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "hello-containers",
+	"name": "static-frontend-container-backend",
 	"main": "src/index.ts",
 	"compatibility_date": "2025-05-23",
 	"compatibility_flags": [
@@ -18,7 +18,7 @@
 			"class_name": "Backend",
 			"image": "./Dockerfile",
 			"max_instances": 3,
-			"name": "my-backend"
+			"name": "backend"
 		}
 	],
 	"durable_objects": {

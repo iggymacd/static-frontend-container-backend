@@ -12,10 +12,10 @@
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20250506.0",
 		"typescript": "^5.5.2",
-		"wrangler": "^4.18.0"
+		"wrangler": "^4.21.0"
 	},
 	"dependencies": {
-		"@cloudflare/containers": "^0.0.10"
+		"@cloudflare/containers": "^0.0.12"
 	},
 	"cloudflare": {
 		"label": "Containers Starter",

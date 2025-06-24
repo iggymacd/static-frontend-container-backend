@@ -7,7 +7,6 @@ export class Backend extends Container {
 
 export interface Env {
   BACKEND: DurableObjectNamespace<Backend>;
-  ASSETS: Fetcher;
 }
 
 const INSTANCE_COUNT = 3;
@@ -18,10 +17,9 @@ export default {
     if (url.pathname.startsWith("/api")) {
       // note: "getRandom" to be replaced with latency-aware routing in the near future
       // this is a temporary helper
-      const containerInstance = await getRandom(env.BACKEND, INSTANCE_COUNT)
+      const containerInstance = await getRandom(env.BACKEND, INSTANCE_COUNT);
       return containerInstance.fetch(request);
     }
-
-    return env.ASSETS.fetch(request);
+    return new Response("Not Found", { status: 404 });
   },
 };

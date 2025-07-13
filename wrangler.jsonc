@@ -19,7 +19,8 @@
 		{
 			"class_name": "Backend",
 			"image": "./Dockerfile",
-			"max_instances": 3
+			"max_instances": 3,
+			"name": "sample"
 		}
 	],
 	"durable_objects": {
